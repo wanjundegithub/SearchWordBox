@@ -16,17 +16,18 @@ namespace SearchWordBox.ViewModels
         public MainViewModel()
         {          
             SearchCommand = ReactiveCommand.Create<string,bool>(Search);
-            SearchCommand.Subscribe( async f =>
-            {
-                if (!f)
-                {
-                   await  DialogUtil.ShowMessageWindowAsync("错误", "查找不到相关数据");
-                }
-            });
+            //SearchCommand.Subscribe( async f =>
+            //{
+            //    if (!f)
+            //    {
+            //       await  DialogUtil.ShowMessageWindowAsync("错误", "查找不到相关数据");
+            //    }
+            //});
             RelativeRespondCommand = ReactiveCommand.Create<string,Unit>(RelativeRespond);
             _relativeResultsList.Connect().Bind(out _relativeSearchResults).Subscribe();
         }
 
+        public Action OpenAction { get; set; }
 
         private string _searchRelationText = string.Empty;
 
@@ -56,7 +57,7 @@ namespace SearchWordBox.ViewModels
 
         private bool Search(string searchField)
         {
-            return false;
+            return true;
         }
 
         private Unit RelativeRespond(string searchField)

@@ -1,6 +1,5 @@
-﻿
-
-using SearchWordBox.ViewModels;
+﻿using SearchWordBox.ViewModels;
+using System;
 
 namespace SearchWordBox
 {
@@ -13,7 +12,24 @@ namespace SearchWordBox
         {
             InitializeComponent();
             var viewModel = new MainViewModel();
+            viewModel.SearchCommand.Subscribe(async d=>
+            {
+                if(d)
+                {
+                     ShowSubWindow();
+                }
+                else
+                {
+                    await DialogUtil.ShowMessageWindowAsync("错误", "查找不到相关数据");
+                }
+            });
             DataContext = viewModel;
+        }
+
+        private async void ShowSubWindow()
+        {
+            this.Hide();
+            new SubSearchWindow().Show();
         }
     }
 }
